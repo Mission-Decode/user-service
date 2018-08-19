@@ -2,9 +2,11 @@ package com.user.service.impl;
 
 import com.user.dto.UserDto;
 import com.user.entity.UserBo;
+import com.user.kafka.KafkaService;
 import com.user.repository.UserRepository;
 import com.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,6 +19,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Value("${spring.kafka.topic.userCreated}")
+    private String topic;
+
+    @Autowired
+    private KafkaService kafkaService;
+
 
     @Override
     public UserBo registerNewUser(UserDto userDto) {
@@ -26,6 +34,8 @@ public class UserServiceImpl implements UserService {
         userBo.setUserName(userDto.getUserName());
 
         UserBo user = userRepository.save(userBo);
+
+        kafkaService.pushToKafka(topic,userBo);
         return user;
     }
 
