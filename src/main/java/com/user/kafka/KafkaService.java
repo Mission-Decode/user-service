@@ -1,5 +1,6 @@
 package com.user.kafka;
 
+import com.user.Utilities.CustomMapper;
 import com.user.entity.UserBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ public class KafkaService {
     private KafkaTemplate<String, UserBo> kafkaTemplate;
 
     public void pushToKafka(String topic, UserBo userBo) {
-        logger.info("sending payload='{}' to topic='{}'", userBo, topic);
+        logger.info("sending payload='{}' to topic='{}'", CustomMapper.objectToJson(userBo), topic);
         kafkaTemplate.send(topic, userBo);
     }
 }
