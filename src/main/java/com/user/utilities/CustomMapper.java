@@ -1,4 +1,4 @@
-package com.user.Utilities;
+package com.user.utilities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

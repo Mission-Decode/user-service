@@ -1,6 +1,5 @@
 package com.user.kafka.config;
 
-import com.user.entity.UserBo;
 import com.user.kafka.KafkaService;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -37,8 +36,8 @@ public class Config {
     }
 
     @Bean
-    public KafkaTemplate<String, UserBo> kafkaTemplate() {
-        return new KafkaTemplate<String, UserBo>(producerFactory());
+    public KafkaTemplate<String, String> kafkaTemplate() {
+        return new KafkaTemplate<String, String>(producerFactory());
     }
 
     @Bean

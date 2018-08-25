@@ -35,8 +35,12 @@ public class UserServiceImpl implements UserService {
 
         UserBo user = userRepository.save(userBo);
 
-        kafkaService.pushToKafka(topic,userBo);
+        publishToKafka(userDto);
         return user;
+    }
+
+    private void publishToKafka(UserDto userDto) {
+        kafkaService.pushToKafka(topic,userDto);
     }
 
     @Override
